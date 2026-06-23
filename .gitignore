@@ -1,0 +1,15 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# Terraform plans
+*.tfplan
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
