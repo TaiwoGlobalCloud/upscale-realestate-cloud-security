@@ -32,3 +32,15 @@ variable "private_db_subnet_b_cidr" {
   type    = string
   default = "10.0.22.0/24"
 }
+
+variable "availability_zone_a" {
+  description = "Primary Availability Zone"
+  type        = string
+  default     = "us-east-1a"
+}
+
+variable "availability_zone_b" {
+  description = "Secondary Availability Zone"
+  type        = string
+  default     = "us-east-1b"
+}
