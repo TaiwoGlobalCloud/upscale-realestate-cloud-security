@@ -35,7 +35,11 @@ resource "aws_security_group" "alb_sg" {
   }
 
   tags = {
-    Name = "upscale-alb-security-group"
+    Name        = "upscale-alb-security-group"
+    Project     = var.project_name
+    Environment = var.environment
+    Owner       = var.owner
+    ManagedBy   = "Terraform"
   }
 }
 
@@ -76,7 +80,11 @@ resource "aws_security_group" "app_sg" {
   }
 
   tags = {
-    Name = "upscale-app-security-group"
+    Name        = "upscale-app-security-group"
+    Project     = var.project_name
+    Environment = var.environment
+    Owner       = var.owner
+    ManagedBy   = "Terraform"
   }
 }
 
@@ -108,6 +116,10 @@ resource "aws_security_group" "db_sg" {
   }
 
   tags = {
-    Name = "upscale-db-security-group"
+    Name        = "upscale-db-security-group"
+    Project     = var.project_name
+    Environment = var.environment
+    Owner       = var.owner
+    ManagedBy   = "Terraform"
   }
 }

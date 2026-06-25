@@ -4,7 +4,11 @@ resource "aws_vpc" "upscale_vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "upscale-realestate-vpc"
+    Name        = "upscale-realestate-vpc"
+    Project     = var.project_name
+    Environment = var.environment
+    Owner       = var.owner
+    ManagedBy   = "Terraform"
   }
 }
 
