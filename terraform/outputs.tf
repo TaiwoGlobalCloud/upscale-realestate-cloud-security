@@ -91,3 +91,17 @@ output "launch_template_latest_version" {
   description = "Latest Launch Template Version"
   value       = module.launch_template.launch_template_latest_version
 }
+
+####################################################
+# Auto Scaling Outputs
+####################################################
+
+output "autoscaling_group_name" {
+  description = "Auto Scaling Group Name"
+  value       = module.autoscaling.autoscaling_group_name
+}
+
+output "autoscaling_group_arn" {
+  description = "Auto Scaling Group ARN"
+  value       = module.autoscaling.autoscaling_group_arn
+}

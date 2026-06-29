@@ -71,3 +71,18 @@ module "launch_template" {
   instance_profile_name         = module.iam.instance_profile_name
   application_security_group_id = module.security_groups.app_security_group_id
 }
+
+####################################################
+# Auto Scaling Module
+####################################################
+
+module "autoscaling" {
+  source = "./modules/autoscaling"
+
+  project_name = var.project_name
+  common_tags  = local.common_tags
+
+  launch_template_id     = module.launch_template.launch_template_id
+  target_group_arn       = module.alb.target_group_arn
+  private_app_subnet_ids = module.vpc.private_app_subnet_ids
+}
