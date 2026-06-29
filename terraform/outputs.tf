@@ -43,3 +43,32 @@ output "bucket_name" {
   description = "Property Images Bucket"
   value       = module.s3.bucket_name
 }
+
+####################################################
+# Application Load Balancer Outputs
+####################################################
+
+output "alb_id" {
+  description = "Application Load Balancer ID"
+  value       = module.alb.alb_id
+}
+
+output "alb_arn" {
+  description = "Application Load Balancer ARN"
+  value       = module.alb.alb_arn
+}
+
+output "alb_dns_name" {
+  description = "Application Load Balancer DNS Name"
+  value       = module.alb.alb_dns_name
+}
+
+output "alb_zone_id" {
+  description = "Application Load Balancer Hosted Zone ID"
+  value       = module.alb.alb_zone_id
+}
+
+output "target_group_arn" {
+  description = "Application Target Group ARN"
+  value       = module.alb.target_group_arn
+}
