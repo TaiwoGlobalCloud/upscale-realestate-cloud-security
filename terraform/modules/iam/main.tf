@@ -33,13 +33,12 @@ resource "aws_iam_role" "ec2_role" {
 
   assume_role_policy = data.aws_iam_policy_document.ec2_assume_role.json
 
-  tags = {
-    Name        = "${var.project_name}-ec2-role"
-    Project     = var.project_name
-    Environment = var.environment
-    Owner       = var.owner
-    ManagedBy   = "Terraform"
-  }
+  tags = merge(
+    var.common_tags,
+    {
+      Name = "${var.project_name}-ec2-role"
+    }
+  )
 }
 
 ####################################################
@@ -73,4 +72,11 @@ resource "aws_iam_instance_profile" "ec2_profile" {
   name = "${var.project_name}-instance-profile"
 
   role = aws_iam_role.ec2_role.name
+
+  tags = merge(
+    var.common_tags,
+    {
+      Name = "${var.project_name}-instance-profile"
+    }
+  )
 }

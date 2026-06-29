@@ -3,26 +3,26 @@ resource "aws_vpc" "upscale_vpc" {
   enable_dns_support   = true
   enable_dns_hostnames = true
 
-  tags = {
-    Name        = "upscale-realestate-vpc"
-    Project     = var.project_name
-    Environment = var.environment
-    Owner       = var.owner
-    ManagedBy   = "Terraform"
-  }
+  tags = merge(var.common_tags, {
+    Name = "${var.project_name}-vpc"
+  })
 }
+
+####################################################
+# Internet Gateway
+####################################################
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.upscale_vpc.id
 
-  tags = {
-    Name = "upscale-igw"
-  }
+  tags = merge(var.common_tags, {
+    Name = "${var.project_name}-igw"
+  })
 }
 
-# -------------------------
+####################################################
 # Public Subnets
-# -------------------------
+####################################################
 
 resource "aws_subnet" "public_a" {
   vpc_id                  = aws_vpc.upscale_vpc.id
@@ -30,9 +30,9 @@ resource "aws_subnet" "public_a" {
   availability_zone       = var.availability_zone_a
   map_public_ip_on_launch = true
 
-  tags = {
-    Name = "public-subnet-a"
-  }
+  tags = merge(var.common_tags, {
+    Name = "${var.project_name}-public-subnet-a"
+  })
 }
 
 resource "aws_subnet" "public_b" {
@@ -41,23 +41,23 @@ resource "aws_subnet" "public_b" {
   availability_zone       = var.availability_zone_b
   map_public_ip_on_launch = true
 
-  tags = {
-    Name = "public-subnet-b"
-  }
+  tags = merge(var.common_tags, {
+    Name = "${var.project_name}-public-subnet-b"
+  })
 }
 
-# -------------------------
+####################################################
 # Private Application Subnets
-# -------------------------
+####################################################
 
 resource "aws_subnet" "private_app_a" {
   vpc_id            = aws_vpc.upscale_vpc.id
   cidr_block        = var.private_app_subnet_a_cidr
   availability_zone = var.availability_zone_a
 
-  tags = {
-    Name = "private-app-a"
-  }
+  tags = merge(var.common_tags, {
+    Name = "${var.project_name}-private-app-a"
+  })
 }
 
 resource "aws_subnet" "private_app_b" {
@@ -65,23 +65,23 @@ resource "aws_subnet" "private_app_b" {
   cidr_block        = var.private_app_subnet_b_cidr
   availability_zone = var.availability_zone_b
 
-  tags = {
-    Name = "private-app-b"
-  }
+  tags = merge(var.common_tags, {
+    Name = "${var.project_name}-private-app-b"
+  })
 }
 
-# -------------------------
+####################################################
 # Private Database Subnets
-# -------------------------
+####################################################
 
 resource "aws_subnet" "private_db_a" {
   vpc_id            = aws_vpc.upscale_vpc.id
   cidr_block        = var.private_db_subnet_a_cidr
   availability_zone = var.availability_zone_a
 
-  tags = {
-    Name = "private-db-a"
-  }
+  tags = merge(var.common_tags, {
+    Name = "${var.project_name}-private-db-a"
+  })
 }
 
 resource "aws_subnet" "private_db_b" {
@@ -89,26 +89,26 @@ resource "aws_subnet" "private_db_b" {
   cidr_block        = var.private_db_subnet_b_cidr
   availability_zone = var.availability_zone_b
 
-  tags = {
-    Name = "private-db-b"
-  }
+  tags = merge(var.common_tags, {
+    Name = "${var.project_name}-private-db-b"
+  })
 }
 
-# -------------------------
-# Elastic IP for NAT Gateway
-# -------------------------
+####################################################
+# Elastic IP
+####################################################
 
 resource "aws_eip" "nat_eip" {
   domain = "vpc"
 
-  tags = {
-    Name = "upscale-nat-eip"
-  }
+  tags = merge(var.common_tags, {
+    Name = "${var.project_name}-nat-eip"
+  })
 }
 
-# -------------------------
+####################################################
 # NAT Gateway
-# -------------------------
+####################################################
 
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat_eip.id
@@ -116,14 +116,14 @@ resource "aws_nat_gateway" "nat" {
 
   depends_on = [aws_internet_gateway.igw]
 
-  tags = {
-    Name = "upscale-nat-gateway"
-  }
+  tags = merge(var.common_tags, {
+    Name = "${var.project_name}-nat-gateway"
+  })
 }
 
-# -------------------------
+####################################################
 # Public Route Table
-# -------------------------
+####################################################
 
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.upscale_vpc.id
@@ -133,9 +133,9 @@ resource "aws_route_table" "public_rt" {
     gateway_id = aws_internet_gateway.igw.id
   }
 
-  tags = {
-    Name = "public-route-table"
-  }
+  tags = merge(var.common_tags, {
+    Name = "${var.project_name}-public-route-table"
+  })
 }
 
 resource "aws_route_table_association" "public_a_assoc" {
@@ -148,9 +148,9 @@ resource "aws_route_table_association" "public_b_assoc" {
   route_table_id = aws_route_table.public_rt.id
 }
 
-# -------------------------
+####################################################
 # Private Route Table
-# -------------------------
+####################################################
 
 resource "aws_route_table" "private_rt" {
   vpc_id = aws_vpc.upscale_vpc.id
@@ -160,9 +160,9 @@ resource "aws_route_table" "private_rt" {
     nat_gateway_id = aws_nat_gateway.nat.id
   }
 
-  tags = {
-    Name = "private-route-table"
-  }
+  tags = merge(var.common_tags, {
+    Name = "${var.project_name}-private-route-table"
+  })
 }
 
 resource "aws_route_table_association" "private_app_a_assoc" {

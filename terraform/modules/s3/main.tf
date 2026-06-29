@@ -6,13 +6,12 @@ resource "aws_s3_bucket" "property_images" {
 
   bucket = "${var.project_name}-property-images"
 
-  tags = {
-    Name        = "${var.project_name}-property-images"
-    Project     = var.project_name
-    Environment = var.environment
-    Owner       = var.owner
-    ManagedBy   = "Terraform"
-  }
+  tags = merge(
+    var.common_tags,
+    {
+      Name = "${var.project_name}-property-images"
+    }
+  )
 }
 
 ####################################################
@@ -29,7 +28,7 @@ resource "aws_s3_bucket_versioning" "property_images" {
 }
 
 ####################################################
-# Server Side Encryption
+# Server-Side Encryption
 ####################################################
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "property_images" {

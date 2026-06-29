@@ -1,9 +1,9 @@
-##############################################
+####################################################
 # Application Load Balancer Security Group
-##############################################
+####################################################
 
 resource "aws_security_group" "alb_sg" {
-  name        = "upscale-alb-sg"
+  name        = "${var.project_name}-alb-sg"
   description = "Security Group for Application Load Balancer"
   vpc_id      = var.vpc_id
 
@@ -34,21 +34,20 @@ resource "aws_security_group" "alb_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-    Name        = "upscale-alb-security-group"
-    Project     = var.project_name
-    Environment = var.environment
-    Owner       = var.owner
-    ManagedBy   = "Terraform"
-  }
+  tags = merge(
+    var.common_tags,
+    {
+      Name = "${var.project_name}-alb-security-group"
+    }
+  )
 }
 
-##############################################
+####################################################
 # Application Security Group
-##############################################
+####################################################
 
 resource "aws_security_group" "app_sg" {
-  name        = "upscale-app-sg"
+  name        = "${var.project_name}-app-sg"
   description = "Security Group for EC2 Application Servers"
   vpc_id      = var.vpc_id
 
@@ -79,21 +78,20 @@ resource "aws_security_group" "app_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-    Name        = "upscale-app-security-group"
-    Project     = var.project_name
-    Environment = var.environment
-    Owner       = var.owner
-    ManagedBy   = "Terraform"
-  }
+  tags = merge(
+    var.common_tags,
+    {
+      Name = "${var.project_name}-app-security-group"
+    }
+  )
 }
 
-##############################################
+####################################################
 # Database Security Group
-##############################################
+####################################################
 
 resource "aws_security_group" "db_sg" {
-  name        = "upscale-db-sg"
+  name        = "${var.project_name}-db-sg"
   description = "Security Group for PostgreSQL Database"
   vpc_id      = var.vpc_id
 
@@ -115,11 +113,10 @@ resource "aws_security_group" "db_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-    Name        = "upscale-db-security-group"
-    Project     = var.project_name
-    Environment = var.environment
-    Owner       = var.owner
-    ManagedBy   = "Terraform"
-  }
+  tags = merge(
+    var.common_tags,
+    {
+      Name = "${var.project_name}-db-security-group"
+    }
+  )
 }
