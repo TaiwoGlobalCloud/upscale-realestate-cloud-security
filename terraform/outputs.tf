@@ -105,3 +105,26 @@ output "autoscaling_group_arn" {
   description = "Auto Scaling Group ARN"
   value       = module.autoscaling.autoscaling_group_arn
 }
+####################################################
+# RDS Outputs
+####################################################
+
+output "db_instance_id" {
+  description = "RDS Instance ID"
+  value       = module.rds.db_instance_id
+}
+
+output "db_instance_endpoint" {
+  description = "RDS Endpoint"
+  value       = module.rds.db_instance_endpoint
+}
+
+output "db_instance_address" {
+  description = "RDS Address"
+  value       = module.rds.db_instance_address
+}
+
+output "db_secret_arn" {
+  description = "Secrets Manager ARN"
+  value       = module.rds.db_secret_arn
+}

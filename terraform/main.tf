@@ -86,3 +86,17 @@ module "autoscaling" {
   target_group_arn       = module.alb.target_group_arn
   private_app_subnet_ids = module.vpc.private_app_subnet_ids
 }
+
+####################################################
+# RDS Module
+####################################################
+
+module "rds" {
+  source = "./modules/rds"
+
+  project_name = var.project_name
+  common_tags  = local.common_tags
+
+  private_db_subnet_ids = module.vpc.private_db_subnet_ids
+  db_security_group_id  = module.security_groups.db_security_group_id
+}
