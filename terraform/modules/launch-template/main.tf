@@ -36,6 +36,12 @@ resource "aws_launch_template" "app" {
 
   instance_type = var.instance_type
 
+  ####################################################
+  # User Data
+  ####################################################
+
+  user_data = base64encode(var.user_data)
+
   update_default_version = true
 
   iam_instance_profile {

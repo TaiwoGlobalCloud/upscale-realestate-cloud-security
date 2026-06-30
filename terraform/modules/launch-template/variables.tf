@@ -43,3 +43,13 @@ variable "application_security_group_id" {
   description = "Application Security Group ID"
   type        = string
 }
+
+####################################################
+# User Data
+####################################################
+
+variable "user_data" {
+  description = "User data script for EC2 instances"
+  type        = string
+  default     = ""
+}

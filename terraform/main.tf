@@ -70,6 +70,31 @@ module "launch_template" {
 
   instance_profile_name         = module.iam.instance_profile_name
   application_security_group_id = module.security_groups.app_security_group_id
+
+  user_data = <<-EOF
+#!/bin/bash
+dnf update -y
+
+dnf install -y nginx
+
+systemctl enable nginx
+systemctl start nginx
+
+cat > /usr/share/nginx/html/index.html <<HTML
+<!DOCTYPE html>
+<html>
+<head>
+<title>Upscale Real Estate</title>
+</head>
+<body style="font-family: Arial; text-align:center; margin-top:80px;">
+<h1>Upscale Real Estate Cloud Platform</h1>
+<h2>Infrastructure Successfully Deployed</h2>
+<p>Provisioned with Terraform on AWS</p>
+<p>Auto Scaling • Application Load Balancer • PostgreSQL • S3</p>
+</body>
+</html>
+HTML
+EOF
 }
 
 ####################################################
