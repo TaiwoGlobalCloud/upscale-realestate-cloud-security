@@ -168,3 +168,14 @@ module "cloudtrail" {
 
   bucket_name = module.s3.bucket_name
 }
+
+####################################################
+# GuardDuty Module
+####################################################
+
+module "guardduty" {
+  source = "./modules/guardduty"
+
+  project_name = var.project_name
+  common_tags  = local.common_tags
+}

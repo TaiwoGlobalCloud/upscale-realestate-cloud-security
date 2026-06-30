@@ -170,3 +170,12 @@ output "cloudtrail_arn" {
   description = "CloudTrail ARN"
   value       = module.cloudtrail.cloudtrail_arn
 }
+
+####################################################
+# GuardDuty Outputs
+####################################################
+
+output "guardduty_detector_id" {
+  description = "GuardDuty Detector ID"
+  value       = module.guardduty.guardduty_detector_id
+}
