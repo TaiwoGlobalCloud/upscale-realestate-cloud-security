@@ -188,3 +188,17 @@ output "securityhub_account_id" {
   description = "Security Hub Account ID"
   value       = module.securityhub.securityhub_account_id
 }
+
+####################################################
+# CloudTrail Log Bucket Outputs
+####################################################
+
+output "cloudtrail_bucket_name" {
+  description = "CloudTrail Log Bucket Name"
+  value       = module.s3.cloudtrail_bucket_name
+}
+
+output "cloudtrail_bucket_arn" {
+  description = "CloudTrail Log Bucket ARN"
+  value       = module.s3.cloudtrail_bucket_arn
+}

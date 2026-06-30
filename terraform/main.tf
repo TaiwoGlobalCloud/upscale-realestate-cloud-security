@@ -166,7 +166,8 @@ module "cloudtrail" {
   project_name = var.project_name
   common_tags  = local.common_tags
 
-  bucket_name = module.s3.bucket_name
+  # Dedicated CloudTrail logging bucket
+  bucket_name = module.s3.cloudtrail_bucket_name
 }
 
 ####################################################
