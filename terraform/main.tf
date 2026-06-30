@@ -179,3 +179,14 @@ module "guardduty" {
   project_name = var.project_name
   common_tags  = local.common_tags
 }
+
+####################################################
+# Security Hub Module
+####################################################
+
+module "securityhub" {
+  source = "./modules/securityhub"
+
+  project_name = var.project_name
+  common_tags  = local.common_tags
+}

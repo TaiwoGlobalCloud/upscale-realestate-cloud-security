@@ -179,3 +179,12 @@ output "guardduty_detector_id" {
   description = "GuardDuty Detector ID"
   value       = module.guardduty.guardduty_detector_id
 }
+
+####################################################
+# Security Hub Outputs
+####################################################
+
+output "securityhub_account_id" {
+  description = "Security Hub Account ID"
+  value       = module.securityhub.securityhub_account_id
+}
