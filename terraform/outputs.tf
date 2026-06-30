@@ -156,3 +156,17 @@ output "web_acl_arn" {
   description = "AWS WAF Web ACL ARN"
   value       = module.waf.web_acl_arn
 }
+
+####################################################
+# CloudTrail Outputs
+####################################################
+
+output "cloudtrail_id" {
+  description = "CloudTrail ID"
+  value       = module.cloudtrail.cloudtrail_id
+}
+
+output "cloudtrail_arn" {
+  description = "CloudTrail ARN"
+  value       = module.cloudtrail.cloudtrail_arn
+}
