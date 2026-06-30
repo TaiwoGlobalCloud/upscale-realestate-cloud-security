@@ -142,3 +142,17 @@ output "cloudwatch_dashboard_name" {
   description = "CloudWatch Dashboard Name"
   value       = module.monitoring.dashboard_name
 }
+
+####################################################
+# WAF Outputs
+####################################################
+
+output "web_acl_id" {
+  description = "AWS WAF Web ACL ID"
+  value       = module.waf.web_acl_id
+}
+
+output "web_acl_arn" {
+  description = "AWS WAF Web ACL ARN"
+  value       = module.waf.web_acl_arn
+}

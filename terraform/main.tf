@@ -142,3 +142,16 @@ module "monitoring" {
   # Reserved for future ALB monitoring enhancements
   alb_name = module.alb.alb_id
 }
+
+####################################################
+# WAF Module
+####################################################
+
+module "waf" {
+  source = "./modules/waf"
+
+  project_name = var.project_name
+  common_tags  = local.common_tags
+
+  alb_arn = module.alb.alb_arn
+}
