@@ -128,3 +128,17 @@ output "db_secret_arn" {
   description = "Secrets Manager ARN"
   value       = module.rds.db_secret_arn
 }
+
+####################################################
+# Monitoring Outputs
+####################################################
+
+output "cloudwatch_log_group_name" {
+  description = "CloudWatch Log Group Name"
+  value       = module.monitoring.log_group_name
+}
+
+output "cloudwatch_dashboard_name" {
+  description = "CloudWatch Dashboard Name"
+  value       = module.monitoring.dashboard_name
+}

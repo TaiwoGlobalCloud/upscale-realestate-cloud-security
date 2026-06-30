@@ -125,3 +125,20 @@ module "rds" {
   private_db_subnet_ids = module.vpc.private_db_subnet_ids
   db_security_group_id  = module.security_groups.db_security_group_id
 }
+
+####################################################
+# Monitoring Module
+####################################################
+
+module "monitoring" {
+  source = "./modules/monitoring"
+
+  project_name = var.project_name
+  common_tags  = local.common_tags
+
+  autoscaling_group_name = module.autoscaling.autoscaling_group_name
+  db_instance_id         = module.rds.db_instance_id
+
+  # Reserved for future ALB monitoring enhancements
+  alb_name = module.alb.alb_id
+}
