@@ -204,3 +204,14 @@ module "vpc_flow_logs" {
 
   vpc_id = module.vpc.vpc_id
 }
+
+####################################################
+# KMS Module
+####################################################
+
+module "kms" {
+  source = "./modules/kms"
+
+  project_name = var.project_name
+  common_tags  = local.common_tags
+}

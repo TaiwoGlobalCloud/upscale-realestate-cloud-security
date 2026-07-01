@@ -216,3 +216,22 @@ output "vpc_flow_log_group_name" {
   description = "VPC Flow Logs CloudWatch Log Group"
   value       = module.vpc_flow_logs.flow_log_group_name
 }
+
+####################################################
+# KMS Outputs
+####################################################
+
+output "kms_key_id" {
+  description = "KMS Key ID"
+  value       = module.kms.kms_key_id
+}
+
+output "kms_key_arn" {
+  description = "KMS Key ARN"
+  value       = module.kms.kms_key_arn
+}
+
+output "kms_alias" {
+  description = "KMS Alias"
+  value       = module.kms.kms_alias
+}
