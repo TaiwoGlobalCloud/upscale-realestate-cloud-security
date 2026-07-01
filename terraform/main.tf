@@ -33,6 +33,17 @@ module "iam" {
 }
 
 ####################################################
+# KMS Module
+####################################################
+
+module "kms" {
+  source = "./modules/kms"
+
+  project_name = var.project_name
+  common_tags  = local.common_tags
+}
+
+####################################################
 # S3 Module
 ####################################################
 
@@ -41,6 +52,8 @@ module "s3" {
 
   project_name = var.project_name
   common_tags  = local.common_tags
+
+  kms_key_arn = module.kms.kms_key_arn
 }
 
 ####################################################
@@ -124,6 +137,8 @@ module "rds" {
 
   private_db_subnet_ids = module.vpc.private_db_subnet_ids
   db_security_group_id  = module.security_groups.db_security_group_id
+
+  kms_key_arn = module.kms.kms_key_arn
 }
 
 ####################################################
@@ -166,7 +181,6 @@ module "cloudtrail" {
   project_name = var.project_name
   common_tags  = local.common_tags
 
-  # Dedicated CloudTrail logging bucket
   bucket_name = module.s3.cloudtrail_bucket_name
 }
 
@@ -203,15 +217,4 @@ module "vpc_flow_logs" {
   common_tags  = local.common_tags
 
   vpc_id = module.vpc.vpc_id
-}
-
-####################################################
-# KMS Module
-####################################################
-
-module "kms" {
-  source = "./modules/kms"
-
-  project_name = var.project_name
-  common_tags  = local.common_tags
 }

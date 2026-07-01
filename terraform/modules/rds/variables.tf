@@ -73,3 +73,12 @@ variable "multi_az" {
   type        = bool
   default     = false
 }
+
+####################################################
+# KMS Key ARN
+####################################################
+
+variable "kms_key_arn" {
+  description = "Customer-managed KMS Key ARN for RDS encryption"
+  type        = string
+}

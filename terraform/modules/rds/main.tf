@@ -71,11 +71,25 @@ resource "aws_db_instance" "postgres" {
 
   allocated_storage = var.allocated_storage
   storage_type      = "gp3"
+
+  ##################################################
+  # Encryption
+  ##################################################
+
   storage_encrypted = true
+  kms_key_id        = var.kms_key_arn
+
+  ##################################################
+  # Database Configuration
+  ##################################################
 
   db_name  = var.db_name
   username = var.db_username
   password = random_password.db_password.result
+
+  ##################################################
+  # Networking
+  ##################################################
 
   db_subnet_group_name = aws_db_subnet_group.postgres.name
 
@@ -83,15 +97,20 @@ resource "aws_db_instance" "postgres" {
     var.db_security_group_id
   ]
 
-  backup_retention_period = 7
-
-  skip_final_snapshot = true
-
   publicly_accessible = false
 
-  multi_az = var.multi_az
+  ##################################################
+  # Backup & Availability
+  ##################################################
 
-  deletion_protection = false
+  backup_retention_period = 7
+  skip_final_snapshot     = true
+  multi_az                = var.multi_az
+  deletion_protection     = false
+
+  ##################################################
+  # Tags
+  ##################################################
 
   tags = merge(
     var.common_tags,
