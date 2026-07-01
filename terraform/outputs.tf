@@ -202,3 +202,17 @@ output "cloudtrail_bucket_arn" {
   description = "CloudTrail Log Bucket ARN"
   value       = module.s3.cloudtrail_bucket_arn
 }
+
+####################################################
+# VPC Flow Logs Outputs
+####################################################
+
+output "vpc_flow_log_id" {
+  description = "VPC Flow Log ID"
+  value       = module.vpc_flow_logs.flow_log_id
+}
+
+output "vpc_flow_log_group_name" {
+  description = "VPC Flow Logs CloudWatch Log Group"
+  value       = module.vpc_flow_logs.flow_log_group_name
+}
